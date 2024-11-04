@@ -18,7 +18,13 @@ const CreatePage = () => {
   const { createProduct } = useProductStore();
   const handleAddProject = async () => {
     const { success, message } = await createProduct(newProduct);
-    console.log({ success, message });
+    if (!success) {
+      alert(message);
+    } else {
+      alert("Successful entry");
+    setNewProduct({name: "", price: 0, image: ""});
+
+    }
   };
 
   return (
@@ -44,7 +50,7 @@ const CreatePage = () => {
               className="bg-gray-100 py-2 px-6 rounded-sm"
               value={newProduct.price}
               onChange={(e) =>
-                setNewProduct({ ...newProduct, price:Number(e.target.value) })
+                setNewProduct({ ...newProduct, price: Number(e.target.value) })
               }
             />
             <input
