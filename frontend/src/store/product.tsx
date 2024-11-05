@@ -2,7 +2,8 @@ import { create } from "zustand";
 import axios from "axios";
 
 type Product = {
-  id?: string;
+  _id: string;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -15,6 +16,7 @@ interface ProductStore {
     newProduct: Product
   ) => Promise<{ success: boolean; message: string }>;
   fetchProducts: () => Promise<void>;
+  deleteProducts: (pid: string) => Promise<{success: boolean, message: string}>
 }
 
 export const useProductStore = create<ProductStore>((set) => ({
@@ -40,6 +42,18 @@ export const useProductStore = create<ProductStore>((set) => ({
       set({ products: res.data.data });
     } catch (error) {
       console.error("Error fetching products:", error);
+    }
+  },
+  deleteProducts: async(pid) => {
+    try {
+      await axios.delete(`/api/products/${pid}`);
+      set((state) => ({
+        products: state.products.filter((product) => product.id !== pid),
+      }));
+      return { success: true, message: "Product deleted successfully" };
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      return { success: false, message: "Failed to delete product" };
     }
   },
 }));

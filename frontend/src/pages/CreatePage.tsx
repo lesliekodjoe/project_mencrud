@@ -30,7 +30,7 @@ const CreatePage = () => {
   return (
     <div>
       <div className="w-full flex flex-col items-center justify-center">
-        <div className="w-[600px]">
+        <div className="md:w-[600px]">
           <h1 className="text-center text-5xl font-medium">Add a Product</h1>
           <div className="py-20 flex flex-col gap-y-8">
             <input
