@@ -48,7 +48,7 @@ export const useProductStore = create<ProductStore>((set) => ({
     try {
       await axios.delete(`/api/products/${pid}`);
       set((state) => ({
-        products: state.products.filter((product) => product.id !== pid),
+        products: state.products.filter((product) => product._id !== pid),
       }));
       return { success: true, message: "Product deleted successfully" };
     } catch (error) {

@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
 type Props = {
-  id: string
+  id: string;
   name: string;
   image: string;
   price: number;
@@ -14,11 +14,7 @@ const Card = ({ id, name, image, price }: Props) => {
   const { deleteProducts } = useProductStore();
   const handleDeleteProduct = async (pid: string) => {
     const { success, message } = await deleteProducts(pid);
-    if (!success) {
-      alert(message);
-    } else {
-      alert("Successful entry");
-    }
+    alert(success ? message : "Not Deleted");
   };
   return (
     <div className="bg-black rounded-md text-white">
@@ -30,7 +26,10 @@ const Card = ({ id, name, image, price }: Props) => {
           <button className="flex items-center bg-white text-black p-2 rounded-sm">
             <FaEdit />
           </button>
-          <button className="flex items-center bg-white text-black p-2 rounded-sm" onClick={()=> handleDeleteProduct(id)}>
+          <button
+            className="flex items-center bg-white text-black p-2 rounded-sm"
+            onClick={() => handleDeleteProduct(id)}
+          >
             <MdDelete />
           </button>
         </div>
